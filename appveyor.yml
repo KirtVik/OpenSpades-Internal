@@ -1,0 +1,11 @@
+version: 1.0.{build}
+configuration: Release
+platform: x86
+install:
+  - ps: iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))
+  - choco install directx-sdk
+
+build_script:
+  - set DXSDK_DIR=C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)
+  - set PATH=%DXSDK_DIR%\Utilities\bin\x86;%DXSDK_DIR%\Lib\x86;%PATH%
+  - msbuild MyProject.sln /p:Configuration=Release /p:Platform=%arch%
